@@ -1,0 +1,11 @@
+bandwidth: 3
+batch_size: 64
+data_path: lorenz_dataset.h5
+dropout: 0.1
+hidden_size: 50
+input_size: 29
+learning_rate: 0.001
+num_workers: 4
+rate_conversion_factor: 0.05
+seed: 0
+weight_decay: 0.0001

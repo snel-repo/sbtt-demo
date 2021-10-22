@@ -10,7 +10,8 @@ class SequentialAutoencoder(pl.LightningModule):
                  hidden_size=50,
                  learning_rate=1e-3,
                  weight_decay=1e-4,
-                 rate_conversion_factor=0.05):
+                 rate_conversion_factor=0.05,
+                 dropout=0.1):
         super().__init__()
         self.save_hyperparameters()
         # Instantiate bidirectional GRU encoder
@@ -33,6 +34,8 @@ class SequentialAutoencoder(pl.LightningModule):
             in_features=hidden_size,
             out_features=input_size,
         )
+        # Instantiate dropout
+        self.dropout = nn.Dropout(p=dropout)
 
     def forward(self, x):
         # Interpolate NaNs with zeros
@@ -42,11 +45,13 @@ class SequentialAutoencoder(pl.LightningModule):
         # Combine output from fwd and bwd encoders
         h_n = torch.cat([*h_n], -1)
         # Compute initial condition
-        ic = self.ic_linear(h_n)
+        h_n_drop = self.dropout(h_n)
+        ic = self.ic_linear(h_n_drop)
         # Create an empty input tensor
         input_placeholder = torch.zeros_like(x)[:, :, :1]
         # Unroll the decoder
-        latents, _ = self.decoder(input_placeholder, torch.unsqueeze(ic, 0))
+        ic_drop = self.dropout(ic)
+        latents, _ = self.decoder(input_placeholder, torch.unsqueeze(ic_drop, 0))
         # Map decoder state to logrates
         logrates = self.readout(latents)
         return logrates

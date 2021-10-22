@@ -21,7 +21,7 @@ class LorenzDataModule(pl.LightningDataModule):
         self.save_hyperparameters()
         self.rng = np.random.RandomState(seed=seed)
     
-    def setup(self, stage):
+    def setup(self, stage=None):
         hps = self.hparams
         # Load data arrays from file
         with h5py.File(hps.data_path, 'r') as h5file:

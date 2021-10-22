@@ -1,4 +1,5 @@
 numpy
+pandas
 sklearn
 torch
 pytorch-lightning
