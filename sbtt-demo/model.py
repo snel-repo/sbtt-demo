@@ -78,8 +78,8 @@ class SequentialAutoencoder(pl.LightningModule):
         self.log('train_loss', loss, on_epoch=True)
         self.log('train_nll', loss, on_epoch=True)
         # Compute match to true rates
-        truth = truth.detach().numpy()
-        rates = torch.exp(logrates).detach().numpy() 
+        truth = truth.detach().cpu().numpy()
+        rates = torch.exp(logrates).detach().cpu().numpy() 
         rates *= self.hparams.rate_conversion_factor
         truth = np.concatenate([*truth])
         rates = np.concatenate([*rates])
@@ -100,8 +100,8 @@ class SequentialAutoencoder(pl.LightningModule):
         loss = nn.functional.poisson_nll_loss(logrates_obs, x_obs)
         self.log('valid_loss', loss, on_epoch=True)
         self.log('valid_nll', loss, on_epoch=True)
-        truth = truth.detach().numpy()
-        rates = torch.exp(logrates).detach().numpy() 
+        truth = truth.detach().cpu().numpy()
+        rates = torch.exp(logrates).detach().cpu().numpy() 
         rates *= self.hparams.rate_conversion_factor
         truth = np.concatenate([*truth])
         rates = np.concatenate([*rates])

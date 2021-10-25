@@ -9,7 +9,7 @@ conda create --name sbtt-demo python=3.9
 conda activate sbtt-demo
 pip install -r requirements.txt
 ```
-The functions of various scripts and modules should be self-explanatory (`train.py`, `model.py`, etc.). Pre-trained models and their training history and hyperparameters can be found in `lightning_logs`.
+Running the `train.py` script will train several models on varying levels of missing data, from 0% to ~93%. Checkpoints, training histories, and hyperparameters for these runs will stored as `version_{N}` in `lightning_logs`. We provide checkpoints for trained models at `lightning_logs/version_\[0-7\]`. Trained models can be evaluated by running `eval.py`, which plots inferred and true rates and computes coefficient of determination across all missing data levels. The dataset is defined in `data.py` and the model is defined in `model.py`.
 ## Lorenz Dataset
 The dataset consists of trajectories from a simulated latent Lorenz oscillator, projected into the neural dimension (29) and sampled as a Poisson process. The Lorenz systems were simulated for 50 time steps at 20 ms intervals. There are 65 unique rate conditions, each sampled 24 times, for a total of 1560 samples. These samples are split 80/20, creating a 1248-sample training set and 312-sample validation set. Conditions are represented equally in training and validation sets. To simulate bandwidth-limited sampling, we mask a random fraction of the spike counts at each time step in each sample. 
 ## Model Architecture

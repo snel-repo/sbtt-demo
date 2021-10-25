@@ -29,7 +29,7 @@ for bandwidth, model_dir in model_data.items():
     data_path = 'lorenz_dataset.h5'
     datamodule = LorenzDataModule(data_path, bandwidth=bandwidth)
     # Create a trainer
-    trainer = pl.Trainer(logger=False)
+    trainer = pl.Trainer(logger=False, gpus=int(torch.cuda.is_available()))
     result = trainer.validate(model, datamodule)[0]
     result['drop_ratio'] = 1 - bandwidth / TOTAL_OBS
     results.append(result)
