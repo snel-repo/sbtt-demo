@@ -5,7 +5,7 @@ To create an environment and install the dependencies of the project, run the fo
 ```
 git clone git@github.com:snel-repo/sbtt-demo.git
 cd sbtt-demo
-conda create --name sbtt-demo python
+conda create --name sbtt-demo python=3.9
 conda activate sbtt-demo
 pip install -r requirements.txt
 ```
