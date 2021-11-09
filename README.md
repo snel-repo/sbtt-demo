@@ -21,4 +21,4 @@ We find that the autoencoders can learn to infer highly accurate firing rates fo
 
 
 ## References
-<a id="1">[1]</a> TODO: Add reference to SBTT from NeurIPS 2021
+<a id="1">[1]</a> Zhu, F., Sedler, A. R., et al. "Deep inference of latent dynamics with spatio-temporal super-resolution using selective backpropagation through time." arXiv preprint arXiv:2111.00070 (2021).
